@@ -2,14 +2,14 @@ ID,Text,Comment
 WillItLast.Water,Water,
 WillItLast.Food,Food,
 WillItLast.Enough,Enough for the bad season,Bad season = drought or badtide
-WillItLast.RunsOut,Runs out on day {0} of the bad season,{0} day of the bad season
-WillItLast.MayRunOut,May run out on day {0} if the bad season runs long,{0} day of the bad season
+WillItLast.RunsOut,Runs out during the bad season,
+WillItLast.MayRunOut,May run out if the bad season runs long,
 WillItLast.RunsOutInDays,Runs out in {0} days,{0} days from now
 WillItLast.Out,Out now!,
 WillItLast.TooltipStock,Stored: {0} / {1},
 WillItLast.TooltipRatesMeasured,"Produced {0}/day, used {1}/day",Median of recent days
 WillItLast.TooltipRatesEstimated,Used ~{0}/day by {1} beavers (estimated),
-WillItLast.TooltipAtSeasonStart,~{0} expected when the bad season starts,
+WillItLast.TooltipAtSeasonStart,At least ~{0} left when the bad season starts,Worst case
 WillItLast.TooltipSeasonLeft,Bad season: {0} days left,
 WillItLast.TooltipHousingFull,"If housing fills up ({0} beavers): {1}","{0} projected beavers, {1} status text"
 WillItLast.TooltipGrowthContinues,"If growth continues ({0} beavers by season end): {1}","{0} projected beavers, {1} status text"

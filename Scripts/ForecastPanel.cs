@@ -225,9 +225,9 @@ namespace Mods.DroughtForecaster.Scripts {
         return (_loc.T("WillItLast.Enough"), OkColor);
       }
       if (f.RunsOutOnHazardDay <= outlook.MinDuration) {
-        return (_loc.T("WillItLast.RunsOut", f.RunsOutOnHazardDay), BadColor);
+        return (_loc.T("WillItLast.RunsOut"), BadColor);
       }
-      return (_loc.T("WillItLast.MayRunOut", f.RunsOutOnHazardDay), MaybeColor);
+      return (_loc.T("WillItLast.MayRunOut"), MaybeColor);
     }
 
     private string GetTooltip(ResourceView view) {
@@ -247,7 +247,7 @@ namespace Mods.DroughtForecaster.Scripts {
       if (outlook.MaxDuration > 0) {
         if (outlook.IsHazard) {
           lines.Add(_loc.T("WillItLast.TooltipSeasonLeft", outlook.DaysLeft));
-        } else {
+        } else if (f.RunsOutInDays == 0) {
           lines.Add(_loc.T("WillItLast.TooltipAtSeasonStart", f.StockAtHazardStart));
         }
       }

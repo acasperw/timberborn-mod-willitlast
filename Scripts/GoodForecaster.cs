@@ -17,13 +17,10 @@ namespace Mods.DroughtForecaster.Scripts {
     public int Beavers;
     public float DailyProduction;
     public float DailyUse;
-    // False when there aren't enough samples yet and use is estimated from beaver count.
-    public bool IsMeasured;
+    public bool IsMeasured; // False when there aren't enough samples yet and use is estimated from beaver count.
     public int StockAtHazardStart;
-    // Days from now until stock runs out, if that's certain to happen before the hazard; 0 otherwise.
-    public int RunsOutInDays;
-    // Hazard day (1-based) on which stock runs out; 0 if it lasts past the horizon.
-    public int RunsOutOnHazardDay;
+    public int RunsOutInDays; // Days from now until stock runs out, if that could happen before the hazard; 0 otherwise.
+    public int RunsOutOnHazardDay; // Hazard day (1-based) on which stock runs out; 0 if it lasts past the horizon.
 
     public bool IsOut => Stock <= 0 && DailyUse > DailyProduction;
 
@@ -39,7 +36,6 @@ namespace Mods.DroughtForecaster.Scripts {
     private readonly WeatherService _weatherService;
     private readonly GameCycleService _gameCycleService;
     private readonly GlobalGoodSamplingRegistry _globalGoodSamplingRegistry;
-    // Samples only change once a day, so rates are cached until the next one.
     private readonly Dictionary<(IReadOnlyList<string>, bool), Rates> _ratesCache = new();
 
     public GoodForecaster(EventBus eventBus,
@@ -102,7 +98,8 @@ namespace Mods.DroughtForecaster.Scripts {
       } else {
         hazardDay = 1f;
         var net = f.DailyProduction - f.DailyUse;
-        if (net < 0f && f.Stock + net * outlook.MinDaysUntil <= 0f) {
+        // Uses the latest possible start so "day 1 of the bad season" never hints at when it begins.
+        if (net < 0f && f.Stock + net * outlook.MaxDaysUntil <= 0f) {
           f.RunsOutInDays = Mathf.Max(1, Mathf.CeilToInt(f.Stock / -net));
         }
         // Worst case over the possible start days: latest when draining, earliest when filling.
