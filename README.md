@@ -2,7 +2,13 @@
 
 A Timberborn mod that tells you whether your water and food will last the next bad season (drought or badtide).
 
-- Two status buttons in the top right turn green, amber or red based on current stock, production and consumption.
+## Will your water and food last the next bad season?
+
+Adds two status icons with popups that calculates based on current production / consumption, when the longest a hazard could hit, if you would have enough supplies to last the next season, assuming no production during a bad season
+
+- Green: Your food or water supply is expected to last through the bad season.
+- Amber: Your supply may run out during the bad season if you do not stockpile more.
+- Red: Forecast to run out before the bad season ends.
 
 ## Requirements
 
