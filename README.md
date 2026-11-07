@@ -20,7 +20,7 @@ Built with the [Timberborn modding tools](https://github.com/mechanistry/timberb
 
 ## Changelog
 
-### 1.1.0
+### 1.1.1
 
 - Status text no longer gives a day number ("Runs out during the bad season" instead of "Runs out on day N of the bad season").
 - Stock that could run out before the bad season starts now shows "Runs out in N days", instead of hinting that the season starts soon.
