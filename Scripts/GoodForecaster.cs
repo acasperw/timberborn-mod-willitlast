@@ -36,6 +36,7 @@ namespace Mods.DroughtForecaster.Scripts {
     private readonly WeatherService _weatherService;
     private readonly GameCycleService _gameCycleService;
     private readonly GlobalGoodSamplingRegistry _globalGoodSamplingRegistry;
+    private readonly WillItLastOptions _options;
     private readonly Dictionary<(IReadOnlyList<string>, bool), Rates> _ratesCache = new();
 
     public GoodForecaster(EventBus eventBus,
@@ -43,13 +44,15 @@ namespace Mods.DroughtForecaster.Scripts {
                           PopulationService populationService,
                           WeatherService weatherService,
                           GameCycleService gameCycleService,
-                          GlobalGoodSamplingRegistry globalGoodSamplingRegistry) {
+                          GlobalGoodSamplingRegistry globalGoodSamplingRegistry,
+                          WillItLastOptions options) {
       _eventBus = eventBus;
       _resourceCountingService = resourceCountingService;
       _populationService = populationService;
       _weatherService = weatherService;
       _gameCycleService = gameCycleService;
       _globalGoodSamplingRegistry = globalGoodSamplingRegistry;
+      _options = options;
     }
 
     public void Load() {
@@ -66,7 +69,8 @@ namespace Mods.DroughtForecaster.Scripts {
     // productionContinues: false assumes nothing is produced once the bad season starts (water).
     public GoodForecast Calculate(IReadOnlyList<string> goodIds, float perBeaverEstimate, HazardOutlook outlook,
                                   bool productionContinues, int projectedBeavers = 0) {
-      var horizonDays = outlook.MaxDuration;
+      // The safety margin extends the horizon so stock that only just lasts shows amber, not green.
+      var horizonDays = outlook.MaxDuration + _options.SafetyMarginDays;
       var population = _populationService.GlobalPopulationData;
 
       var f = new GoodForecast {
@@ -137,13 +141,11 @@ namespace Mods.DroughtForecaster.Scripts {
       var registry = _globalGoodSamplingRegistry.GoodSamplingRegistry;
       var histories = goodIds.Select(id => registry.GetGoodSampleHistory(id).GoodSamples).ToList();
       var cycle = _gameCycleService.Cycle;
-      // Sample on day N covers day N-1, so shift the phase boundaries by one.
       var firstDay = isHazard ? _weatherService.TemperateWeatherDuration + 2 : 2;
       var minCount = histories.Min(h => h.Count);
 
       var productions = new List<float>();
       var uses = new List<float>();
-      // Histories can differ in length, so index back from the newest sample.
       for (var back = 0; back < MaxSampleDays && back + 1 < minCount; back++) {
         var reference = Sample(histories[0], back);
         if (reference.Cycle != cycle || reference.Day < firstDay) {

@@ -25,7 +25,6 @@ namespace Mods.DroughtForecaster.Scripts {
 
     public bool IsGrowthBased => _factionService.Current?.Id == PodBreedingFactionId;
 
-    // Beavers expected daysAhead from now, assuming no deaths beyond the recent trend.
     public int Project(float daysAhead) {
       var population = _populationService.GlobalPopulationData;
       if (!IsGrowthBased) {

@@ -17,7 +17,6 @@ namespace Mods.DroughtForecaster.Scripts {
 
     private const float RefreshIntervalSeconds = 1f;
     private const string PanelVisibleKey = "WillItLast.PanelVisible";
-    // Normal difficulty beaver needs, scaled by the game mode's consumption setting; the floor for daily use.
     private const float WaterPerBeaverPerDay = 2.13f;
     private const float FoodPerBeaverPerDay = 2.67f;
     private static readonly Color OkColor = new(0.45f, 0.85f, 0.4f);
@@ -36,13 +35,15 @@ namespace Mods.DroughtForecaster.Scripts {
     private readonly ITooltipRegistrar _tooltipRegistrar;
     private readonly ISettings _settings;
     private readonly ILoc _loc;
-    private readonly List<string> _waterGoods = new() { "Water" };
+    private readonly WillItLastOptions _options;
+    private List<string> _waterGoods;
     private List<string> _foodGoods;
     private ResourceView _water;
     private ResourceView _food;
     private VisualElement _buttons;
     private VisualElement _panel;
     private float _nextRefreshTime;
+    private bool _panelVisible;
 
     public ForecastPanel(UILayout uiLayout,
                          EventBus eventBus,
@@ -55,7 +56,8 @@ namespace Mods.DroughtForecaster.Scripts {
                          IAssetLoader assetLoader,
                          ITooltipRegistrar tooltipRegistrar,
                          ISettings settings,
-                         ILoc loc) {
+                         ILoc loc,
+                         WillItLastOptions options) {
       _uiLayout = uiLayout;
       _eventBus = eventBus;
       _visualElementLoader = visualElementLoader;
@@ -68,13 +70,18 @@ namespace Mods.DroughtForecaster.Scripts {
       _tooltipRegistrar = tooltipRegistrar;
       _settings = settings;
       _loc = loc;
+      _options = options;
     }
 
     public void Load() {
       _foodGoods = _goodService.Goods.Where(IsFood).ToList();
+      _waterGoods = _goodService.Goods.Where(g => SatisfiesNeed(g, "Thirst")).ToList();
+      if (_waterGoods.Count == 0) {
+        _waterGoods.Add("Water");
+      }
       _water = new ResourceView("WillItLast.Water", _waterGoods,
                                 WaterPerBeaverPerDay * _needModificationService._waterConsumption,
-                                false, GetIcon("Water"));
+                                false, GetIcon(_waterGoods.Contains("Water") ? "Water" : _waterGoods[0]));
       _food = new ResourceView("WillItLast.Food", _foodGoods,
                                FoodPerBeaverPerDay * _needModificationService._foodConsumption,
                                false, GetIcon(_foodGoods.FirstOrDefault()));
@@ -85,7 +92,8 @@ namespace Mods.DroughtForecaster.Scripts {
       _buttons.Add(CreateStatusButton(_food));
 
       _panel = CreatePanel();
-      SetPanelVisible(_settings.GetBool(PanelVisibleKey));
+      _panelVisible = _settings.GetBool(PanelVisibleKey);
+      ApplyVisibility();
       _eventBus.Register(this);
     }
 
@@ -104,9 +112,11 @@ namespace Mods.DroughtForecaster.Scripts {
       Refresh();
     }
 
-    private bool IsFood(string goodId) {
+    private bool IsFood(string goodId) => SatisfiesNeed(goodId, "Hunger");
+
+    private bool SatisfiesNeed(string goodId, string needId) {
       var effects = _goodService.GetGood(goodId).ConsumptionEffects;
-      return !effects.IsDefault && effects.Any(e => e.NeedId == "Hunger");
+      return !effects.IsDefault && effects.Any(e => e.NeedId == needId);
     }
 
     private Sprite GetIcon(string goodId) {
@@ -138,6 +148,7 @@ namespace Mods.DroughtForecaster.Scripts {
       dot.style.borderLeftColor = dot.style.borderRightColor = border;
       toggle.Add(dot);
 
+      view.Button = root;
       toggle.RegisterValueChangedCallback(evt => SetPanelVisible(evt.newValue));
       _tooltipRegistrar.RegisterUpdatable(root, () => GetTooltip(view));
       view.Toggle = toggle;
@@ -168,6 +179,7 @@ namespace Mods.DroughtForecaster.Scripts {
 
     private VisualElement CreateRow(ResourceView view) {
       var row = new VisualElement();
+      view.Row = row;
       row.style.flexDirection = FlexDirection.Row;
       row.style.alignItems = Align.Center;
       row.style.marginTop = 1;
@@ -188,10 +200,19 @@ namespace Mods.DroughtForecaster.Scripts {
     }
 
     private void SetPanelVisible(bool visible) {
-      _panel.ToggleDisplayStyle(visible);
-      _water.Toggle?.SetValueWithoutNotify(visible);
-      _food.Toggle?.SetValueWithoutNotify(visible);
+      _panelVisible = visible;
       _settings.SetBool(PanelVisibleKey, visible);
+      ApplyVisibility();
+    }
+
+    private void ApplyVisibility() {
+      _water.Button?.ToggleDisplayStyle(_options.ShowWater);
+      _water.Row?.ToggleDisplayStyle(_options.ShowWater);
+      _food.Button?.ToggleDisplayStyle(_options.ShowFood);
+      _food.Row?.ToggleDisplayStyle(_options.ShowFood);
+      _panel.ToggleDisplayStyle(_panelVisible && (_options.ShowWater || _options.ShowFood));
+      _water.Toggle?.SetValueWithoutNotify(_panelVisible);
+      _food.Toggle?.SetValueWithoutNotify(_panelVisible);
     }
 
     private void Refresh() {
@@ -276,6 +297,8 @@ namespace Mods.DroughtForecaster.Scripts {
       public readonly bool ProductionContinues;
       public readonly Sprite Icon;
       public Toggle Toggle;
+      public VisualElement Button;
+      public VisualElement Row;
       public VisualElement Dot;
       public Label RowLabel;
       public HazardOutlook Outlook;

@@ -20,6 +20,10 @@ Built with the [Timberborn modding tools](https://github.com/mechanistry/timberb
 
 ## Changelog
 
+### 1.2.0
+
+- Detects anything that satisfies thirst, instead of just water. (eg. Emberpelts)
+
 ### 1.1.1
 
 - Status text no longer gives a day number ("Runs out during the bad season" instead of "Runs out on day N of the bad season").

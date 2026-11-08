@@ -9,10 +9,8 @@ namespace Mods.DroughtForecaster.Scripts {
   public class HazardOutlook {
 
     public bool IsHazard;
-    // Range of days until the hazard starts; equal once vanilla's approaching warning shows.
     public float MinDaysUntil;
     public float MaxDaysUntil;
-    // Fractional hazard day (1 = first day) while the hazard is running.
     public float HazardDay;
     public int DaysLeft;
     public int MinDuration;
@@ -85,7 +83,6 @@ namespace Mods.DroughtForecaster.Scripts {
       return outlook;
     }
 
-    // Mirrors IHazardousWeather.GetDurationAtCycle without rolling the random value.
     private (int min, int max) GetRange(IHazardousWeather weather, IHazardousWeather current) {
       var cyclesCount = _hazardousWeatherHistory.GetCyclesCount(weather.Id);
       // History already includes the current cycle's pick.
