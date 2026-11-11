@@ -134,25 +134,11 @@ namespace Mods.DroughtForecaster.Scripts {
       checkmark.style.marginLeft = 4;
       checkmark.style.marginTop = 4;
 
-      var dot = new VisualElement { pickingMode = PickingMode.Ignore };
-      dot.style.position = Position.Absolute;
-      dot.style.right = 1;
-      dot.style.bottom = 1;
-      dot.style.width = 9;
-      dot.style.height = 9;
-      SetRound(dot, 4.5f);
-      dot.style.borderTopWidth = dot.style.borderBottomWidth = 1;
-      dot.style.borderLeftWidth = dot.style.borderRightWidth = 1;
-      var border = new Color(0.1f, 0.1f, 0.1f);
-      dot.style.borderTopColor = dot.style.borderBottomColor = border;
-      dot.style.borderLeftColor = dot.style.borderRightColor = border;
-      toggle.Add(dot);
-
       view.Button = root;
       toggle.RegisterValueChangedCallback(evt => SetPanelVisible(evt.newValue));
       _tooltipRegistrar.RegisterUpdatable(root, () => GetTooltip(view));
       view.Toggle = toggle;
-      view.Dot = dot;
+      view.IconElement = checkmark;
       return root;
     }
 
@@ -232,7 +218,7 @@ namespace Mods.DroughtForecaster.Scripts {
       var (status, color) = GetStatus(view.Current, outlook);
       view.RowLabel.text = status;
       view.RowLabel.style.color = color;
-      view.Dot.style.backgroundColor = color;
+      view.IconElement.style.unityBackgroundImageTintColor = Color.Lerp(color, Color.white, 0.35f);
     }
 
     private (string text, Color color) GetStatus(GoodForecast f, HazardOutlook outlook) {
@@ -282,13 +268,6 @@ namespace Mods.DroughtForecaster.Scripts {
       return string.Join("\n", lines);
     }
 
-    private static void SetRound(VisualElement element, float radius) {
-      element.style.borderTopLeftRadius = radius;
-      element.style.borderTopRightRadius = radius;
-      element.style.borderBottomLeftRadius = radius;
-      element.style.borderBottomRightRadius = radius;
-    }
-
     private class ResourceView {
 
       public readonly string TitleLocKey;
@@ -299,7 +278,7 @@ namespace Mods.DroughtForecaster.Scripts {
       public Toggle Toggle;
       public VisualElement Button;
       public VisualElement Row;
-      public VisualElement Dot;
+      public VisualElement IconElement;
       public Label RowLabel;
       public HazardOutlook Outlook;
       public GoodForecast Current;
