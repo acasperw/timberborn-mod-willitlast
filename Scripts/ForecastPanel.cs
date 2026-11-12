@@ -19,9 +19,10 @@ namespace Mods.DroughtForecaster.Scripts {
     private const string PanelVisibleKey = "WillItLast.PanelVisible";
     private const float WaterPerBeaverPerDay = 2.13f;
     private const float FoodPerBeaverPerDay = 2.67f;
-    private static readonly Color OkColor = new(0.45f, 0.85f, 0.4f);
-    private static readonly Color MaybeColor = new(1f, 0.75f, 0.2f);
-    private static readonly Color BadColor = new(0.95f, 0.3f, 0.25f);
+    // Okabe-Ito palette: distinguishable under common forms of color blindness. (Except vermilion which is red)
+    private static readonly Color OkColor = new(0f, 0.62f, 0.45f); // #009E73
+    private static readonly Color MaybeColor = new(0.9f, 0.62f, 0f); // #E69F00, maybe #F0E442?
+    private static readonly Color BadColor = new(0.86f, 0.2f, 0.13f); // Should be #D55E00
 
     private readonly UILayout _uiLayout;
     private readonly EventBus _eventBus;
@@ -137,7 +138,7 @@ namespace Mods.DroughtForecaster.Scripts {
       var dot = new VisualElement { pickingMode = PickingMode.Ignore };
       dot.style.position = Position.Absolute;
       dot.style.right = 1;
-      dot.style.bottom = 1;
+      dot.style.top = 1;
       dot.style.width = 9;
       dot.style.height = 9;
       SetRound(dot, 4.5f);

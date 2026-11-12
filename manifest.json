@@ -1,9 +1,9 @@
 {
   "Name": "Will It Last?",
-  "Version": "1.2.0",
+  "Version": "1.3.0",
   "Id": "acasperw.WillItLast",
   "MinimumGameVersion": "1.1.0.0",
-  "Description": "Will your water and food last the next bad season? Adds status buttons which turn green, amber or red based on your current stock, production and consumption. Hover for details, click for a forecast panel.",
+  "Description": "Will your water and food last the next bad season? Adds status buttons which show a green, orange or red dot based on your current stock, production and consumption. Hover for details, click for a forecast panel.",
   "RequiredMods": [],
   "OptionalMods": []
 }
