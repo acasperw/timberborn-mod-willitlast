@@ -20,6 +20,11 @@ Built with the [Timberborn modding tools](https://github.com/mechanistry/timberb
 
 ## Changelog
 
+### 1.3.5
+
+- Added French, German, Spanish, Polish, Brazilian Portuguese, Russian, Simplified Chinese, Japanese, Korean, Ukrainian, and Turkish translations.
+- Translations were assisted by AI. Suggestions and corrections are welcome on [GitHub](https://github.com/acasperw/timberborn-mod-willitlast).
+
 ### 1.3.0
 Slight better colors for contrast 
 

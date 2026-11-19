@@ -1,0 +1,16 @@
+ID,Text,Comment
+WillItLast.Water,Agua,
+WillItLast.Food,Comida,
+WillItLast.Enough,Suficiente para la temporada difícil,Bad season = drought or badtide
+WillItLast.RunsOut,Se agota durante la temporada difícil,
+WillItLast.MayRunOut,Puede agotarse si la temporada difícil se alarga,
+WillItLast.RunsOutInDays,Días hasta que se agote: {0},{0} days from now
+WillItLast.Out,¡Sin reservas!,
+WillItLast.TooltipStock,En reserva: {0} / {1},
+WillItLast.TooltipRatesMeasured,Producción: {0}/día; consumo: {1}/día,Median of recent days
+WillItLast.TooltipRatesEstimated,Consumo estimado: ~{0}/día (castores: {1}),
+WillItLast.TooltipAtSeasonStart,Al inicio de la temporada difícil quedarán al menos ~{0},Worst case
+WillItLast.TooltipSeasonLeft,Días restantes de la temporada difícil: {0},
+WillItLast.TooltipHousingFull,Si se llenan las viviendas (castores: {0}): {1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipGrowthContinues,Si el crecimiento continúa (castores al final de la temporada: {0}): {1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipClick,Haz clic para mostrar u ocultar el panel de previsión,

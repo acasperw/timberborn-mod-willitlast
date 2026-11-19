@@ -1,0 +1,16 @@
+ID,Text,Comment
+WillItLast.Water,Вода,
+WillItLast.Food,Їжа,
+WillItLast.Enough,Вистачить на несприятливий сезон,Bad season = drought or badtide
+WillItLast.RunsOut,Закінчиться під час несприятливого сезону,
+WillItLast.MayRunOut,"Може закінчитися, якщо несприятливий сезон затягнеться",
+WillItLast.RunsOutInDays,Днів до вичерпання запасів: {0},{0} days from now
+WillItLast.Out,Запаси вичерпано!,
+WillItLast.TooltipStock,У запасі: {0} / {1},
+WillItLast.TooltipRatesMeasured,Виробництво: {0}/дн.; споживання: {1}/дн.,Median of recent days
+WillItLast.TooltipRatesEstimated,Орієнтовне споживання: ~{0}/дн. (бобрів: {1}),
+WillItLast.TooltipAtSeasonStart,На початку несприятливого сезону залишиться щонайменше ~{0},Worst case
+WillItLast.TooltipSeasonLeft,Залишилось днів несприятливого сезону: {0},
+WillItLast.TooltipHousingFull,Якщо все житло буде заселено (бобрів: {0}): {1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipGrowthContinues,Якщо зростання триватиме (бобрів наприкінці сезону: {0}): {1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipClick,"Натисніть, щоб показати або приховати панель прогнозу",

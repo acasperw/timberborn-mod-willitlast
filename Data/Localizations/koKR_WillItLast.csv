@@ -1,0 +1,16 @@
+ID,Text,Comment
+WillItLast.Water,물,
+WillItLast.Food,식량,
+WillItLast.Enough,어려운 계절을 버틸 만큼 충분함,Bad season = drought or badtide
+WillItLast.RunsOut,어려운 계절 중에 고갈됨,
+WillItLast.MayRunOut,어려운 계절이 길어지면 고갈될 수 있음,
+WillItLast.RunsOutInDays,고갈까지 남은 일수: {0},{0} days from now
+WillItLast.Out,이미 고갈됨!,
+WillItLast.TooltipStock,저장량: {0} / {1},
+WillItLast.TooltipRatesMeasured,생산: {0}/일; 소비: {1}/일,Median of recent days
+WillItLast.TooltipRatesEstimated,예상 소비량: ~{0}/일 (비버 수: {1}),
+WillItLast.TooltipAtSeasonStart,어려운 계절이 시작될 때 최소 ~{0} 남음,Worst case
+WillItLast.TooltipSeasonLeft,어려운 계절의 남은 일수: {0},
+WillItLast.TooltipHousingFull,주거 공간이 가득 찰 경우 (비버 수: {0}): {1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipGrowthContinues,인구 증가가 계속될 경우 (계절 종료 시 비버 수: {0}): {1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipClick,클릭하여 예측 패널 표시/숨기기,

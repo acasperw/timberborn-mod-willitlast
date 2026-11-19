@@ -1,0 +1,16 @@
+ID,Text,Comment
+WillItLast.Water,水,
+WillItLast.Food,食料,
+WillItLast.Enough,厳しい季節を乗り切るのに十分,Bad season = drought or badtide
+WillItLast.RunsOut,厳しい季節の間に底をつく,
+WillItLast.MayRunOut,厳しい季節が長引くと底をつく可能性あり,
+WillItLast.RunsOutInDays,底をつくまであと{0}日,{0} days from now
+WillItLast.Out,備蓄が尽きました！,
+WillItLast.TooltipStock,備蓄：{0} / {1},
+WillItLast.TooltipRatesMeasured,生産：{0}/日、消費：{1}/日,Median of recent days
+WillItLast.TooltipRatesEstimated,推定消費量：~{0}/日（ビーバー数：{1}）,
+WillItLast.TooltipAtSeasonStart,厳しい季節の開始時の残量：少なくとも~{0},Worst case
+WillItLast.TooltipSeasonLeft,厳しい季節の残り日数：{0},
+WillItLast.TooltipHousingFull,すべての住居が満員になった場合（ビーバー数：{0}）：{1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipGrowthContinues,人口増加が続いた場合（季節終了時のビーバー数：{0}）：{1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipClick,クリックすると予測パネルの表示・非表示を切り替えます,

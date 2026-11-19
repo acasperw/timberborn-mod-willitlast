@@ -1,0 +1,16 @@
+ID,Text,Comment
+WillItLast.Water,Woda,
+WillItLast.Food,Pożywienie,
+WillItLast.Enough,Wystarczy na trudny sezon,Bad season = drought or badtide
+WillItLast.RunsOut,Zabraknie w trakcie trudnego sezonu,
+WillItLast.MayRunOut,"Może zabraknąć, jeśli trudny sezon się przedłuży",
+WillItLast.RunsOutInDays,Dni do wyczerpania zapasów: {0},{0} days from now
+WillItLast.Out,Zapasy wyczerpane!,
+WillItLast.TooltipStock,Zapasy: {0} / {1},
+WillItLast.TooltipRatesMeasured,Produkcja: {0}/dzień; zużycie: {1}/dzień,Median of recent days
+WillItLast.TooltipRatesEstimated,Szacowane zużycie: ~{0}/dzień (liczba bobrów: {1}),
+WillItLast.TooltipAtSeasonStart,Na początku trudnego sezonu zostanie co najmniej ~{0},Worst case
+WillItLast.TooltipSeasonLeft,Pozostałe dni trudnego sezonu: {0},
+WillItLast.TooltipHousingFull,Jeśli wszystkie domy się zapełnią (liczba bobrów: {0}): {1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipGrowthContinues,Jeśli wzrost populacji się utrzyma (liczba bobrów na koniec sezonu: {0}): {1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipClick,"Kliknij, aby pokazać lub ukryć panel prognozy",

@@ -1,0 +1,16 @@
+ID,Text,Comment
+WillItLast.Water,水,
+WillItLast.Food,食物,
+WillItLast.Enough,储备足以度过艰难季节,Bad season = drought or badtide
+WillItLast.RunsOut,将在艰难季节期间耗尽,
+WillItLast.MayRunOut,如果艰难季节持续太久，储备可能耗尽,
+WillItLast.RunsOutInDays,距离耗尽还有 {0} 天,{0} days from now
+WillItLast.Out,储备已耗尽！,
+WillItLast.TooltipStock,储备：{0} / {1},
+WillItLast.TooltipRatesMeasured,生产：{0}/天；消耗：{1}/天,Median of recent days
+WillItLast.TooltipRatesEstimated,预计消耗：~{0}/天（海狸数量：{1}）,
+WillItLast.TooltipAtSeasonStart,艰难季节开始时至少剩余 ~{0},Worst case
+WillItLast.TooltipSeasonLeft,艰难季节剩余天数：{0},
+WillItLast.TooltipHousingFull,如果住房住满（海狸数量：{0}）：{1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipGrowthContinues,如果人口持续增长（季节结束时海狸数量：{0}）：{1},"{0} projected beavers, {1} status text"
+WillItLast.TooltipClick,点击以显示或隐藏预测面板,
