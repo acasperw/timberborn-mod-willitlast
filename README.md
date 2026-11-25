@@ -19,9 +19,7 @@ can still change weather effects independently, so forecasts remain estimates.
 
 ## Settings
 
-With [Mod Settings](https://steamcommunity.com/sharedfiles/filedetails/?id=3283831040) installed, click the gear next to
-Will It Last? in the mod list, or open Mod Settings in game, to show or hide the water and food forecasts.
-Mod Settings is optional; without it both forecasts are shown.
+Adds options with [Mod Settings](https://steamcommunity.com/sharedfiles/filedetails/?id=3283831040) installed
 
 ## Requirements
 
@@ -31,15 +29,11 @@ Timberborn 1.1.0 or later.
 
 Built with the [Timberborn modding tools](https://github.com/mechanistry/timberborn-modding). Place this folder in `Assets/Mods/` and build with the Mod Builder.
 
-The optional Mod Settings menu is a separate assembly, so the mod still loads without Mod Settings. Build it before the
-Mod Builder, which copies the output from `Data/ModSettingsSupport`:
+Build it before the Mod Builder, which copies the output from `Data/ModSettingsSupport`:
 
 ```
 dotnet build "ModSettingsSupport~" -c Release
 ```
-
-Set `TimberbornManagedDir` or `ModSettingsScriptsDir` with `-p:` if the game or Mod Settings is not in the default
-Steam location.
 
 ## Changelog
 
