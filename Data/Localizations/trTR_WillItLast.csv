@@ -1,4 +1,5 @@
 ID,Text,Comment
+WillItLast.Unavailable,Bu hava durumu için tahmin kullanılamıyor,
 WillItLast.Water,Su,
 WillItLast.Food,Yiyecek,
 WillItLast.Enough,Zorlu mevsim için yeterli,Bad season = drought or badtide

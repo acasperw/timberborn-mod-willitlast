@@ -6,7 +6,6 @@ using Timberborn.GoodsSampling;
 using Timberborn.Population;
 using Timberborn.ResourceCountingSystem;
 using Timberborn.SingletonSystem;
-using Timberborn.WeatherSystem;
 using UnityEngine;
 
 namespace Mods.DroughtForecaster.Scripts {
@@ -33,23 +32,20 @@ namespace Mods.DroughtForecaster.Scripts {
     private readonly EventBus _eventBus;
     private readonly ResourceCountingService _resourceCountingService;
     private readonly PopulationService _populationService;
-    private readonly WeatherService _weatherService;
     private readonly GameCycleService _gameCycleService;
     private readonly GlobalGoodSamplingRegistry _globalGoodSamplingRegistry;
     private readonly WillItLastOptions _options;
-    private readonly Dictionary<(IReadOnlyList<string>, bool), Rates> _ratesCache = new();
+    private readonly Dictionary<(IReadOnlyList<string>, int), Rates> _ratesCache = new();
 
     public GoodForecaster(EventBus eventBus,
                           ResourceCountingService resourceCountingService,
                           PopulationService populationService,
-                          WeatherService weatherService,
                           GameCycleService gameCycleService,
                           GlobalGoodSamplingRegistry globalGoodSamplingRegistry,
                           WillItLastOptions options) {
       _eventBus = eventBus;
       _resourceCountingService = resourceCountingService;
       _populationService = populationService;
-      _weatherService = weatherService;
       _gameCycleService = gameCycleService;
       _globalGoodSamplingRegistry = globalGoodSamplingRegistry;
       _options = options;
@@ -81,7 +77,10 @@ namespace Mods.DroughtForecaster.Scripts {
         f.Stock += resourceCount.AvailableStock;
         f.Capacity += resourceCount.TotalCapacity;
       }
-      var rates = GetRates(goodIds, outlook.IsHazard);
+      var firstDay = outlook.IsHazard
+          ? (outlook.IsAvailable ? outlook.HazardStartCycleDay + 1 : _gameCycleService.CycleDay + 1)
+          : 2;
+      var rates = GetRates(goodIds, firstDay);
       f.IsMeasured = rates.IsMeasured;
       f.DailyProduction = rates.Production;
       f.DailyUse = Mathf.Max(rates.Use, f.Beavers * perBeaverEstimate);
@@ -124,24 +123,23 @@ namespace Mods.DroughtForecaster.Scripts {
       return f;
     }
 
-    private Rates GetRates(IReadOnlyList<string> goodIds, bool isHazard) {
-      if (!_ratesCache.TryGetValue((goodIds, isHazard), out var rates)) {
-        rates = MeasureRates(goodIds, isHazard);
-        _ratesCache[(goodIds, isHazard)] = rates;
+    private Rates GetRates(IReadOnlyList<string> goodIds, int firstDay) {
+      if (!_ratesCache.TryGetValue((goodIds, firstDay), out var rates)) {
+        rates = MeasureRates(goodIds, firstDay);
+        _ratesCache[(goodIds, firstDay)] = rates;
       }
       return rates;
     }
 
     // A sample holds the stock at dawn plus the previous day's production, so use = production - stock change.
     // Medians keep one-off stock jumps (e.g. demolished storage) from skewing the rates.
-    private Rates MeasureRates(IReadOnlyList<string> goodIds, bool isHazard) {
+    private Rates MeasureRates(IReadOnlyList<string> goodIds, int firstDay) {
       if (goodIds.Count == 0) {
         return default;
       }
       var registry = _globalGoodSamplingRegistry.GoodSamplingRegistry;
       var histories = goodIds.Select(id => registry.GetGoodSampleHistory(id).GoodSamples).ToList();
       var cycle = _gameCycleService.Cycle;
-      var firstDay = isHazard ? _weatherService.TemperateWeatherDuration + 2 : 2;
       var minCount = histories.Min(h => h.Count);
 
       var productions = new List<float>();

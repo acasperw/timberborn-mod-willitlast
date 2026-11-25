@@ -23,6 +23,7 @@ namespace Mods.DroughtForecaster.Scripts {
     private static readonly Color OkColor = new(0f, 0.62f, 0.45f); // #009E73
     private static readonly Color MaybeColor = new(0.9f, 0.62f, 0f); // #E69F00, maybe #F0E442?
     private static readonly Color BadColor = new(0.86f, 0.2f, 0.13f); // Should be #D55E00
+    private static readonly Color UnavailableColor = new(0.75f, 0.75f, 0.75f);
 
     private readonly UILayout _uiLayout;
     private readonly EventBus _eventBus;
@@ -219,7 +220,7 @@ namespace Mods.DroughtForecaster.Scripts {
     private void Refresh() {
       var outlook = _hazardOutlookService.Calculate();
       var daysToSeasonEnd = outlook.IsHazard ? outlook.DaysLeft : outlook.MaxDaysUntil + outlook.MaxDuration;
-      var projectedBeavers = _populationProjector.Project(daysToSeasonEnd);
+      var projectedBeavers = outlook.IsAvailable ? _populationProjector.Project(daysToSeasonEnd) : 0;
       Show(_water, outlook, projectedBeavers);
       Show(_food, outlook, projectedBeavers);
     }
@@ -239,6 +240,9 @@ namespace Mods.DroughtForecaster.Scripts {
     private (string text, Color color) GetStatus(GoodForecast f, HazardOutlook outlook) {
       if (f.IsOut) {
         return (_loc.T("WillItLast.Out"), BadColor);
+      }
+      if (!outlook.IsAvailable) {
+        return (_loc.T("WillItLast.Unavailable"), UnavailableColor);
       }
       if (f.RunsOutInDays > 0) {
         return (_loc.T("WillItLast.RunsOutInDays", f.RunsOutInDays), BadColor);

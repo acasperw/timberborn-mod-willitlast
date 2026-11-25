@@ -9,6 +9,13 @@ Adds two status icons with popups that calculates based on current production / 
 - Green dot: Your food or water supply is expected to last through the bad season.
 - Orange dot: Your supply may run out during the bad season if you do not stockpile more.
 - Red dot: Forecast to run out before the bad season ends.
+- Gray dot: A forecast is unavailable for the current weather.
+
+Modded weather can have different season rules. When its possible duration cannot be determined from the
+game's weather settings, the forecast is unavailable until the hazardous weather begins. With Alternative
+Weather System, forecasts are available during hazardous weather once its remaining duration is revealed;
+the mod uses AWS's schedule even when Moddable Weathers is also installed. Running multiple weather systems
+can still change weather effects independently, so forecasts remain estimates.
 
 ## Requirements
 
@@ -19,6 +26,12 @@ Timberborn 1.1.0 or later.
 Built with the [Timberborn modding tools](https://github.com/mechanistry/timberborn-modding). Place this folder in `Assets/Mods/` and build with the Mod Builder.
 
 ## Changelog
+
+# 1.4.0
+
+- Fixed a crash when switching to modded weather.
+- Added support for Alternative Weather System's weather schedule.
+- The forecast shows a grey dot when it can't be calculated, such as for modded weather with an unknown length.
 
 ### 1.3.5
 

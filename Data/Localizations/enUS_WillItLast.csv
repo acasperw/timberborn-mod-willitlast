@@ -6,6 +6,7 @@ WillItLast.RunsOut,Runs out during the bad season,
 WillItLast.MayRunOut,May run out if the bad season runs long,
 WillItLast.RunsOutInDays,Runs out in {0} days,{0} days from now
 WillItLast.Out,Out now!,
+WillItLast.Unavailable,Forecast unavailable for this weather,
 WillItLast.TooltipStock,Stored: {0} / {1},
 WillItLast.TooltipRatesMeasured,"Produced {0}/day, used {1}/day",Median of recent days
 WillItLast.TooltipRatesEstimated,Used ~{0}/day by {1} beavers (estimated),
