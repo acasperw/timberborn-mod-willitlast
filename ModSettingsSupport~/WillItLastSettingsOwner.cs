@@ -4,7 +4,6 @@ using Timberborn.SettingsSystem;
 
 namespace Mods.DroughtForecaster.ModSettingsSupport {
   // Mod Settings stores values as "ModSetting.<ModId>.<type name>.<property name>";
-  // WillItLastOptions reads those keys, so keep the names in sync.
   public class WillItLastSettingsOwner : ModSettingsOwner {
 
     public ModSetting<bool> ShowWater { get; } =

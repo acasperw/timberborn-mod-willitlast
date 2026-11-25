@@ -6,9 +6,7 @@ using Timberborn.ModManagerScene;
 using UnityEngine;
 
 namespace Mods.DroughtForecaster.Scripts {
-  // The Mod Settings menu lives in a separate assembly shipped as a .bin file so the game does not
-  // load it automatically: Timberborn and Bindito call GetTypes() on every loaded assembly, which
-  // would throw for a type deriving from Mod Settings when that mod is not installed.
+  // lives in a separate assembly shipped as a .bin file so is not loaded automatically
   public class ModSettingsLoader : IModStarter {
 
     private const string ModSettingsAssemblyName = "ModSettings.Core";
@@ -37,8 +35,7 @@ namespace Mods.DroughtForecaster.Scripts {
       }
     }
 
-    // Mirrors every Mod Settings member used by WillItLastModSettings, because a loaded assembly
-    // cannot be unloaded and a type load failure would break every scene.
+    // Mirrors every Mod Settings member used by WillItLastModSettings
     private static bool IsCompatible(Assembly modSettings) {
       const BindingFlags instance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
       var owner = modSettings.GetType("ModSettings.Core.ModSettingsOwner");
