@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Optional Mod Settings menu. Built separately from the main DroughtForecaster asmdef because
+    the game calls GetTypes() on every mod DLL, which would fail without Mod Settings installed.
+    The output is shipped as a .bin file that ModSettingsLoader only loads when Mod Settings is present.
+    Build with: dotnet build "ModSettingsSupport~" -c Release
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <AssemblyName>WillItLastModSettings</AssemblyName>
+    <RootNamespace>Mods.DroughtForecaster.ModSettingsSupport</RootNamespace>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <NoStdLib>true</NoStdLib>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <DebugType>none</DebugType>
+    <TimberbornManagedDir Condition="'$(TimberbornManagedDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Timberborn\Timberborn_Data\Managed</TimberbornManagedDir>
+    <ModSettingsScriptsDir Condition="'$(ModSettingsScriptsDir)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\1062090\3283831040\version-1.1\Scripts</ModSettingsScriptsDir>
+    <ModSettingsBinDir>$(MSBuildThisFileDirectory)..\Data\ModSettingsSupport</ModSettingsBinDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(TimberbornManagedDir)\mscorlib.dll" Private="false" />
+    <Reference Include="$(TimberbornManagedDir)\netstandard.dll" Private="false" />
+    <Reference Include="$(TimberbornManagedDir)\System.dll" Private="false" />
+    <Reference Include="$(TimberbornManagedDir)\System.Core.dll" Private="false" />
+    <Reference Include="$(TimberbornManagedDir)\Bindito.Core.dll" Private="false" />
+    <Reference Include="$(TimberbornManagedDir)\Timberborn.Modding.dll" Private="false" />
+    <Reference Include="$(TimberbornManagedDir)\Timberborn.SettingsSystem.dll" Private="false" />
+    <Reference Include="$(TimberbornManagedDir)\Timberborn.SingletonSystem.dll" Private="false" />
+    <Reference Include="$(ModSettingsScriptsDir)\ModSettings.Core.dll" Private="false" />
+  </ItemGroup>
+
+  <Target Name="CopyModSettingsBin" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetPath)" DestinationFiles="$(ModSettingsBinDir)\WillItLastModSettings.bin" />
+  </Target>
+
+</Project>

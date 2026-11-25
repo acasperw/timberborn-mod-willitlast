@@ -17,6 +17,12 @@ Weather System, forecasts are available during hazardous weather once its remain
 the mod uses AWS's schedule even when Moddable Weathers is also installed. Running multiple weather systems
 can still change weather effects independently, so forecasts remain estimates.
 
+## Settings
+
+With [Mod Settings](https://steamcommunity.com/sharedfiles/filedetails/?id=3283831040) installed, click the gear next to
+Will It Last? in the mod list, or open Mod Settings in game, to show or hide the water and food forecasts.
+Mod Settings is optional; without it both forecasts are shown.
+
 ## Requirements
 
 Timberborn 1.1.0 or later.
@@ -25,13 +31,26 @@ Timberborn 1.1.0 or later.
 
 Built with the [Timberborn modding tools](https://github.com/mechanistry/timberborn-modding). Place this folder in `Assets/Mods/` and build with the Mod Builder.
 
+The optional Mod Settings menu is a separate assembly, so the mod still loads without Mod Settings. Build it before the
+Mod Builder, which copies the output from `Data/ModSettingsSupport`:
+
+```
+dotnet build "ModSettingsSupport~" -c Release
+```
+
+Set `TimberbornManagedDir` or `ModSettingsScriptsDir` with `-p:` if the game or Mod Settings is not in the default
+Steam location.
+
 ## Changelog
+
+### 1.5.0
+- Added optional Mod Settings support to show or hide the water and food forecasts.
 
 ### 1.4.0
 
 - Fixed a crash when switching to modded weather.
 - Added support for Alternative Weather System's weather schedule.
-- The forecast shows a grey dot when it can't be calculated, such as for modded weather with an unknown length.
+- The forecast shows a grey dot when it can't be calculated, such as for modded weather with an unknown length
 
 ### 1.3.5
 
