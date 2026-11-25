@@ -17,6 +17,7 @@ obj/
 
 # .NET build artifacts
 *.dll
+*.bin
 *.pdb
 *.cache
 *.tmp

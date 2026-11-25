@@ -15,3 +15,5 @@ WillItLast.TooltipSeasonLeft,Bad season: {0} days left,
 WillItLast.TooltipHousingFull,"If housing fills up ({0} beavers): {1}","{0} projected beavers, {1} status text"
 WillItLast.TooltipGrowthContinues,"If growth continues ({0} beavers by season end): {1}","{0} projected beavers, {1} status text"
 WillItLast.TooltipClick,Click to show or hide the forecast panel,
+WillItLast.Settings.ShowWater,Show water forecast,Mod Settings toggle
+WillItLast.Settings.ShowFood,Show food forecast,Mod Settings toggle

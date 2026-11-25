@@ -46,6 +46,8 @@ namespace Mods.DroughtForecaster.Scripts {
     private VisualElement _panel;
     private float _nextRefreshTime;
     private bool _panelVisible;
+    private bool _showWater;
+    private bool _showFood;
 
     public ForecastPanel(UILayout uiLayout,
                          EventBus eventBus,
@@ -208,16 +210,21 @@ namespace Mods.DroughtForecaster.Scripts {
     }
 
     private void ApplyVisibility() {
-      _water.Button?.ToggleDisplayStyle(_options.ShowWater);
-      _water.Row?.ToggleDisplayStyle(_options.ShowWater);
-      _food.Button?.ToggleDisplayStyle(_options.ShowFood);
-      _food.Row?.ToggleDisplayStyle(_options.ShowFood);
-      _panel.ToggleDisplayStyle(_panelVisible && (_options.ShowWater || _options.ShowFood));
+      _showWater = _options.ShowWater;
+      _showFood = _options.ShowFood;
+      _water.Button?.ToggleDisplayStyle(_showWater);
+      _water.Row?.ToggleDisplayStyle(_showWater);
+      _food.Button?.ToggleDisplayStyle(_showFood);
+      _food.Row?.ToggleDisplayStyle(_showFood);
+      _panel.ToggleDisplayStyle(_panelVisible && (_showWater || _showFood));
       _water.Toggle?.SetValueWithoutNotify(_panelVisible);
       _food.Toggle?.SetValueWithoutNotify(_panelVisible);
     }
 
     private void Refresh() {
+      if (_showWater != _options.ShowWater || _showFood != _options.ShowFood) {
+        ApplyVisibility();
+      }
       var outlook = _hazardOutlookService.Calculate();
       var daysToSeasonEnd = outlook.IsHazard ? outlook.DaysLeft : outlook.MaxDaysUntil + outlook.MaxDuration;
       var projectedBeavers = outlook.IsAvailable ? _populationProjector.Project(daysToSeasonEnd) : 0;
