@@ -27,7 +27,7 @@ Built with the [Timberborn modding tools](https://github.com/mechanistry/timberb
 
 ## Changelog
 
-# 1.4.0
+### 1.4.0
 
 - Fixed a crash when switching to modded weather.
 - Added support for Alternative Weather System's weather schedule.
